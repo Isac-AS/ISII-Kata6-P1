@@ -1,25 +1,30 @@
 package toys;
 
+import toyproduct.Toy;
+import toyproduct.models.HelicopterToy;
+import toyproduct.models.CarToy;
+
 public class ToyBusiness {
-    
+
     public SerialNumberGenerator generator = new SerialNumberGenerator();
-    
-    public Car createCar() {
-        Car car = new Car(this.generator.next());
-        car.pack();
-        car.label();
-        System.out.println("Built car with S/N: "
-                                + car.getSerialNumber());
-        return car;
+
+    public Toy createToy(String type) {
+        switch (type) {
+            case "car":
+            case "Car":
+                CarToy car = new CarToy(this.generator.next());
+                car.pack();
+                car.label();
+                return car;
+            case "helicopter":
+            case "Helicopter":
+                HelicopterToy helicopter = new HelicopterToy(this.generator.next());
+                helicopter.pack();
+                helicopter.label();
+                return helicopter;
+            default:
+                System.out.println("Unknown type!");
+                return null;
+        }
     }
-    
-    public Helicopter createHelicopter() {
-        Helicopter helicopter = new Helicopter(this.generator.next());
-        helicopter.pack();
-        helicopter.label();
-        System.out.println("Built helicopter with S/N: "
-                                + helicopter.getSerialNumber());
-        return helicopter;
-    }
-    
 }

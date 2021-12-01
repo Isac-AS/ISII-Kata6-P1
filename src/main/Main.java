@@ -3,8 +3,9 @@ package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import toys.Car;
-import toys.Helicopter;
+import toyproduct.Toy;
+import toyproduct.models.CarToy;
+import toyproduct.models.HelicopterToy;
 import toys.SerialNumberGenerator;
 import toys.ToyBusiness;
 
@@ -12,8 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         SerialNumberGenerator generator = new SerialNumberGenerator();
-        ArrayList<Car> cars = new ArrayList<>();
-        ArrayList<Helicopter> helicopters = new ArrayList<>();
+        ArrayList<Toy> toys = new ArrayList<>();
 
         ToyBusiness business = new ToyBusiness();
         
@@ -26,18 +26,12 @@ public class Main {
                 switch (line) {
                     case "car":
                     case "Car":
-                        cars.add(business.createCar());
-                        System.out.println(
-                                "Built cars: " + cars.stream()
-                                        .map(c -> c.getSerialNumber().toString())
-                                        .collect(Collectors.joining(", ")));
-                        break;
                     case "helicopter":
                     case "Helicopter":
-                        helicopters.add(business.createHelicopter());
+                        toys.add(business.createToy(line));
                         System.out.println(
-                                "Built helicopters: " + helicopters.stream()
-                                        .map(h -> h.getSerialNumber().toString())
+                                "Built toys: " + toys.stream()
+                                        .map(h -> h.toString())
                                         .collect(Collectors.joining(", ")));
                         break;
                     default:
