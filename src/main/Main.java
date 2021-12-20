@@ -1,20 +1,18 @@
 package main;
 
-import branches.AmericanToyBusiness;
-import branches.AsianToyBusiness;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import toyproduct.Toy;
-import business.SerialNumberGenerator;
+import factories.SerialNumberGenerator;
 import business.ToyBusiness;
+import factories.regionalfactories.AmericanToyFactory;
 
 public class Main {
 
     public static void main(String[] args) {
-        SerialNumberGenerator generator = new SerialNumberGenerator();
         ArrayList<Toy> toys = new ArrayList<>();
-
+        
         Scanner sc = new Scanner(System.in);
         String line = "";
         ToyBusiness business = null;
@@ -24,11 +22,11 @@ public class Main {
             switch (line) {
                 case "Asia":
                 case "asia":
-                    business = new AsianToyBusiness();
+                    business = new ToyBusiness(new AmericanToyFactory());
                     break;
                 case "America":
                 case "america":
-                    business = new AmericanToyBusiness();
+                    business = new ToyBusiness(new AmericanToyFactory());
                     break;
                 default:
                     System.out.println("Region incorrecta. Inténtelo de nuevo.");
@@ -45,7 +43,7 @@ public class Main {
                     case "Car":
                     case "helicopter":
                     case "Helicopter":
-                        toys.add(business.createToy(line));
+                        toys.add(business.produceToy(line));
                         System.out.println(
                                 "Built toys: " + toys.stream()
                                         .map(h -> h.toString())

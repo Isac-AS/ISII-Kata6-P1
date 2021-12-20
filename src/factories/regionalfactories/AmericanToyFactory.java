@@ -1,11 +1,11 @@
-package branches;
+package factories.regionalfactories;
 
 import toyproduct.models.AmericanCarToy;
 import toyproduct.models.AmericanHelicopterToy;
-import business.ToyBusiness;
+import factories.ToyFactory;
 import toyproduct.Toy;
 
-public class AmericanToyBusiness extends ToyBusiness{
+public class AmericanToyFactory extends ToyFactory{
 
     @Override
     public Toy createToy(String type) {
@@ -13,14 +13,10 @@ public class AmericanToyBusiness extends ToyBusiness{
             case "car":
             case "Car":
                 AmericanCarToy car = new AmericanCarToy(this.generator.next());
-                car.pack();
-                car.label();
                 return car;
             case "helicopter":
             case "Helicopter":
                 AmericanHelicopterToy helicopter = new AmericanHelicopterToy(this.generator.next());
-                helicopter.pack();
-                helicopter.label();
                 return helicopter;
             default:
                 System.out.println("Unknown type!");
