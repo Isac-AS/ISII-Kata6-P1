@@ -4,29 +4,39 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import toyproduct.Toy;
-import factories.SerialNumberGenerator;
 import business.ToyBusiness;
-import factories.regionalfactories.AmericanToyFactory;
+import factories.regionalfactories.AmericanCarToyFactory;
+import factories.regionalfactories.AmericanHelicopterToyFactory;
+import factories.regionalfactories.AmericanSubmarineToyFactory;
+import factories.regionalfactories.AsianCarToyFactory;
+import factories.regionalfactories.AsianHelicopterToyFactory;
+import factories.regionalfactories.AsianSubmarineToyFactory;
 
 public class Main {
 
     public static void main(String[] args) {
+        ToyBusiness business = new ToyBusiness();
+
         ArrayList<Toy> toys = new ArrayList<>();
-        
+
         Scanner sc = new Scanner(System.in);
         String line = "";
-        ToyBusiness business = null;
-        while (business == null) {
+
+        while (!line.equals("Asia") && !line.equals("asia") && !line.equals("America") && !line.equals("america")) {
             System.out.print("\n¿En qué región se va a trabajar? (Asia o America): ");
             line = sc.nextLine();
             switch (line) {
                 case "Asia":
                 case "asia":
-                    business = new ToyBusiness(new AmericanToyFactory());
+                    business.add("car", new AsianCarToyFactory());
+                    business.add("helicopter", new AsianHelicopterToyFactory());
+                    business.add("submarine", new AsianSubmarineToyFactory());
                     break;
                 case "America":
                 case "america":
-                    business = new ToyBusiness(new AmericanToyFactory());
+                    business.add("car", new AmericanCarToyFactory());
+                    business.add("helicopter", new AmericanHelicopterToyFactory());
+                    business.add("submarine", new AmericanSubmarineToyFactory());
                     break;
                 default:
                     System.out.println("Region incorrecta. Inténtelo de nuevo.");
@@ -35,7 +45,7 @@ public class Main {
         }
 
         while (!line.equals("exit")) {
-            System.out.print("\nInserte el comando (car, helicopter o exit): ");
+            System.out.print("\nInserte el comando (car, helicopter, submarine o exit): ");
             line = sc.nextLine();
             if (!line.equals("exit")) {
                 switch (line) {
@@ -43,7 +53,9 @@ public class Main {
                     case "Car":
                     case "helicopter":
                     case "Helicopter":
-                        toys.add(business.produceToy(line));
+                    case "submarine":
+                    case "Submarine":
+                        toys.add(business.produceToy(line.toLowerCase()));
                         System.out.println(
                                 "Built toys: " + toys.stream()
                                         .map(h -> h.toString())
