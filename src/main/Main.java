@@ -25,14 +25,12 @@ public class Main {
         while (!line.equals("Asia") && !line.equals("asia") && !line.equals("America") && !line.equals("america")) {
             System.out.print("\n¿En qué región se va a trabajar? (Asia o America): ");
             line = sc.nextLine();
-            switch (line) {
-                case "Asia":
+            switch (line.toLowerCase()) {
                 case "asia":
                     business.add("car", new AsianCarToyFactory());
                     business.add("helicopter", new AsianHelicopterToyFactory());
                     business.add("submarine", new AsianSubmarineToyFactory());
                     break;
-                case "America":
                 case "america":
                     business.add("car", new AmericanCarToyFactory());
                     business.add("helicopter", new AmericanHelicopterToyFactory());
@@ -48,13 +46,10 @@ public class Main {
             System.out.print("\nInserte el comando (car, helicopter, submarine o exit): ");
             line = sc.nextLine();
             if (!line.equals("exit")) {
-                switch (line) {
+                switch (line.toLowerCase()) {
                     case "car":
-                    case "Car":
                     case "helicopter":
-                    case "Helicopter":
                     case "submarine":
-                    case "Submarine":
                         toys.add(business.produceToy(line.toLowerCase()));
                         System.out.println(
                                 "Built toys: " + toys.stream()
